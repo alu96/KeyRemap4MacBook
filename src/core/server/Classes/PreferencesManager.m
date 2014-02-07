@@ -14,13 +14,25 @@
 
 @implementation PreferencesManager
 
++ (NSArray*) getAllWorkspaces
+{
+  return (__bridge_transfer NSArray *)(CGSCopySpaces(_CGSDefaultConnection(), kCGSSpaceAll));
+}
+
+- (CGSSpace) getCurrentWorkspace
+{
+  return ((__bridge_transfer NSArray *)(CGSCopySpaces(_CGSDefaultConnection(), kCGSSpaceCurrent)))[0]; // TODO: doesn't work with more than one monitor
+}
+
 // ----------------------------------------
 + (void) initialize
 {
   NSDictionary* dict = @{ kIsQuitByHand : @NO,
                           kIsStatusBarEnabled : @YES,
                           kIsShowSettingNameInStatusBar : @NO,
+                          kConfigListSelectedIndexForAllSpaces: @NO,
                           kConfigListSelectedIndex : @0,
+                          kConfigListSelectedIndexForSpace: [[NSDictionary alloc] init],
                           kCheckForUpdates : @1,
                           kIsStatusWindowEnabled : @YES,
                           kIsStatusWindowShowStickyModifier : @NO,
@@ -30,8 +42,30 @@
                           kStatusWindowOpacity : @80,
                           kStatusWindowFontSize : @0,  // Small
                           kStatusWindowPosition : @3,  // Bottom right
-  };
+                        };
   [[NSUserDefaults standardUserDefaults] registerDefaults:dict];
+  
+  NSArray *workspaces = [self getAllWorkspaces];
+  NSMutableDictionary *configIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:kConfigListSelectedIndexForSpace] mutableCopy];
+  
+  NSMutableArray *keysToDelete = [NSMutableArray array];
+
+  // remove if workspace doesnot exist any more
+  for (NSString* key in configIndex) {
+    bool contains = false;
+    
+    for (NSUInteger i = 0; i < [workspaces count]; i++) {
+      if ((CGSSpace)workspaces[i] == (CGSSpace)[key longLongValue])
+        contains = true;
+    }
+    
+    if (!contains)
+      [keysToDelete addObject:key];
+  }
+  
+  [configIndex removeObjectsForKeys:keysToDelete];
+  
+  [[NSUserDefaults standardUserDefaults] setObject:configIndex forKey:kConfigListSelectedIndexForSpace];
 }
 
 // ----------------------------------------
@@ -292,7 +326,26 @@
 // ----------------------------------------------------------------------
 - (NSInteger) configlist_selectedIndex
 {
-  return [[NSUserDefaults standardUserDefaults] integerForKey:@"selectedIndex"];
+  return [self configlist_selectedIndex:[self getCurrentWorkspace]];
+}
+
+- (NSInteger) configlist_selectedIndex:(CGSSpace)workspace;
+{
+  NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+  
+  if ([userDefaults boolForKey:kConfigListSelectedIndexForAllSpaces])
+  {
+    return [userDefaults integerForKey:kConfigListSelectedIndex];
+  } else {
+    NSDictionary *dict = [userDefaults dictionaryForKey:kConfigListSelectedIndexForSpace];
+    NSString *key = [NSString stringWithFormat: @"%llu", workspace];
+    
+    if ((NSNull *)[dict objectForKey:key] == [NSNull null]) {
+      return 0; // default value
+    } else {
+      return [[dict objectForKey:key] intValue];
+    }
+  }
 }
 
 - (NSString*) configlist_selectedName
@@ -343,6 +396,11 @@
 
 - (void) configlist_select:(NSInteger)newindex
 {
+  [self configlist_select:newindex forWorkspace:[self getCurrentWorkspace]];
+}
+
+- (void) configlist_select:(NSInteger)newindex forWorkspace:(CGSSpace)workspace
+{
   if (newindex < 0) return;
   if (newindex == [self configlist_selectedIndex]) return;
 
@@ -350,9 +408,17 @@
   if (! list) return;
   if ((NSUInteger)(newindex) >= [list count]) return;
 
-  NSUserDefaults* userdefaults = [NSUserDefaults standardUserDefaults];
-  [userdefaults setInteger:newindex forKey:@"selectedIndex"];
-
+  NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+  
+  if ([userDefaults boolForKey:kConfigListSelectedIndexForAllSpaces])
+  {
+    [userDefaults setInteger:newindex forKey:kConfigListSelectedIndex];
+  } else {
+    NSMutableDictionary *dict = [[userDefaults dictionaryForKey:kConfigListSelectedIndexForSpace] mutableCopy];
+    [dict setValue:[NSNumber numberWithInteger:newindex] forKey:[NSString stringWithFormat: @"%llu", workspace]];
+    [[NSUserDefaults standardUserDefaults] setObject:dict forKey:kConfigListSelectedIndexForSpace];
+  }
+  
   [[NSNotificationCenter defaultCenter] postNotificationName:kConfigListChangedNotification object:nil];
   [[NSNotificationCenter defaultCenter] postNotificationName:kPreferencesChangedNotification object:nil];
   [clientForKernelspace_ send_config_to_kext];
@@ -416,9 +482,16 @@
 
   if (rowIndex < 0 || (NSUInteger)(rowIndex) >= [a count]) return;
 
-  NSInteger selectedIndex = [self configlist_selectedIndex];
-  if (rowIndex == selectedIndex) return;
-
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kConfigListSelectedIndexForAllSpaces]) {
+    if (rowIndex == [self configlist_selectedIndex]) return;
+  } else {
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigListSelectedIndexForSpace];
+    
+    for (NSString* key in dict) {
+      if ([[dict valueForKey:key] integerValue] == rowIndex) return;
+    }
+  }
+    
   NSMutableArray* ma = [NSMutableArray arrayWithArray:a];
   if (! ma) return;
 
@@ -433,8 +506,20 @@
   // - Item2
   // - Item3 [selected]
   //
-  if (rowIndex < selectedIndex) {
-    [self configlist_select:(selectedIndex - 1)];
+  
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:kConfigListSelectedIndexForAllSpaces]) {
+    NSInteger selectedIndex = [self configlist_selectedIndex];
+    if (rowIndex < selectedIndex) {
+      [self configlist_select:(selectedIndex - 1)];
+    }
+  } else {
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kConfigListSelectedIndexForSpace];
+    
+    for (NSString* key in dict) {
+      NSInteger selectedIndex = [[dict valueForKey:key] integerValue];
+      if (rowIndex < selectedIndex)
+        [self configlist_select:(selectedIndex - 1) forWorkspace:(CGSSpace)[key longLongValue]];
+    }
   }
 
   [[NSNotificationCenter defaultCenter] postNotificationName:kConfigListChangedNotification object:nil];

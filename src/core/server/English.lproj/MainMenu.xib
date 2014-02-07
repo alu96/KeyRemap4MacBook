@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="4514" systemVersion="13B3116" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment version="1060" defaultVersion="1090" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="4514"/>
@@ -107,15 +107,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="668" height="620"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <tabView autoresizesSubviews="NO" initialItem="633" id="630">
-                        <rect key="frame" x="13" y="10" width="642" height="604"/>
+                    <tabView initialItem="633" id="630">
+                        <rect key="frame" x="13" y="10.000000077850888" width="642" height="604"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="Change Key" identifier="1" id="633">
                                 <view key="view" id="662">
                                     <rect key="frame" x="10" y="33" width="622" height="558"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button id="663">
                                             <rect key="frame" x="259" y="535" width="228" height="19"/>
@@ -144,11 +144,11 @@
                                             <rect key="frame" x="17" y="37" width="588" height="491"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="n2M-kD-RD0">
-                                                <rect key="frame" x="1" y="17" width="571" height="473"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <rect key="frame" x="1" y="17" width="586" height="473"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="16" headerView="669" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="673" id="672">
-                                                        <rect key="frame" x="0.0" y="0.0" width="571" height="473"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="586" height="473"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <size key="intercellSpacing" width="2" height="3"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -180,11 +180,11 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="0.0020833333333333333" horizontal="NO" id="671">
-                                                <rect key="frame" x="572" y="17" width="15" height="473"/>
+                                                <rect key="frame" x="571" y="17" width="16" height="473"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <tableHeaderView key="headerView" id="669">
-                                                <rect key="frame" x="0.0" y="0.0" width="571" height="17"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="586" height="17"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </tableHeaderView>
                                         </scrollView>
@@ -233,7 +233,7 @@
                                             <rect key="frame" x="17" y="39" width="588" height="459"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="9G2-q6-FVr">
-                                                <rect key="frame" x="1" y="17" width="571" height="441"/>
+                                                <rect key="frame" x="1" y="17" width="570" height="441"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="16" headerView="681" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="683" id="678">
@@ -328,7 +328,7 @@
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="679">
-                                                <rect key="frame" x="572" y="17" width="15" height="441"/>
+                                                <rect key="frame" x="571" y="17" width="16" height="441"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                             </scroller>
                                             <tableHeaderView key="headerView" id="681">
@@ -624,21 +624,21 @@ Use the first two settings below.</string>
                             <tabViewItem label="MenuBar" identifier="Item 3" id="631">
                                 <view key="view" id="693">
                                     <rect key="frame" x="10" y="33" width="622" height="558"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <box autoresizesSubviews="NO" title="SettingList" borderType="line" id="695">
-                                            <rect key="frame" x="14" y="80" width="594" height="375"/>
+                                            <rect key="frame" x="14" y="35" width="594" height="420"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <view key="contentView">
-                                                <rect key="frame" x="1" y="1" width="592" height="359"/>
+                                                <rect key="frame" x="1" y="1" width="592" height="404"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="700">
-                                                        <rect key="frame" x="18" y="46" width="556" height="192"/>
+                                                        <rect key="frame" x="18" y="91" width="556" height="192"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <clipView key="contentView" id="XEC-4K-dD2">
                                                             <rect key="frame" x="1" y="1" width="554" height="190"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" id="703">
                                                                     <rect key="frame" x="0.0" y="0.0" width="554" height="190"/>
@@ -680,7 +680,7 @@ Use the first two settings below.</string>
                                                         </scroller>
                                                     </scrollView>
                                                     <button id="699">
-                                                        <rect key="frame" x="18" y="14" width="24" height="24"/>
+                                                        <rect key="frame" x="18" y="59" width="24" height="24"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="706">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -691,7 +691,7 @@ Use the first two settings below.</string>
                                                         </connections>
                                                     </button>
                                                     <button id="698">
-                                                        <rect key="frame" x="41" y="14" width="24" height="24"/>
+                                                        <rect key="frame" x="41" y="59" width="24" height="24"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="707">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -702,7 +702,7 @@ Use the first two settings below.</string>
                                                         </connections>
                                                     </button>
                                                     <textField verticalHuggingPriority="750" id="1389">
-                                                        <rect key="frame" x="15" y="246" width="460" height="102"/>
+                                                        <rect key="frame" x="15" y="291" width="460" height="102"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" allowsUndo="NO" sendsActionOnEndEditing="YES" alignment="left" id="1390">
                                                             <font key="font" metaFont="system"/>
@@ -716,6 +716,18 @@ Note: You cannot delete a profile that is in use (in the menu bar).
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                     </textField>
+                                                    <button id="zV4-nZ-kdC">
+                                                        <rect key="frame" x="16" y="27" width="245" height="18"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <buttonCell key="cell" type="check" title="Use same profile for all Workspaces" bezelStyle="regularSquare" imagePosition="left" inset="2" id="whW-Nt-Qb9">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <action selector="sendConfigListChangedNotification:" target="592" id="Fs1-mX-F3c"/>
+                                                            <binding destination="1176" name="value" keyPath="values.selectedIndexForAllSpaces" id="0bP-PU-sfR"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                             </view>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>

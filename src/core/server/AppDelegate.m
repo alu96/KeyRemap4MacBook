@@ -13,6 +13,12 @@
 #import "Updater.h"
 #import "WorkSpaceData.h"
 #include <stdlib.h>
+#import "CGSPrivate.h"
+
+//typedef int CGSConnection;
+extern OSStatus CGSGetWorkspace(const CGSConnection cid, int *workspace);
+extern OSStatus CGSSetWorkspace(const CGSConnection cid, int workspace);
+//extern CGSConnection _CGSDefaultConnection(void);
 
 @interface AppDelegate ()
 {
@@ -265,6 +271,13 @@ static void observer_IONotification(void* refcon, io_iterator_t iterator)
   });
 }
 
+- (void) observer_NSWorkspaceActiveSpaceDidChangeNotification:(NSNotification*)notification
+{
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kConfigListChangedNotification object:nil];
+  });
+}
+
 // ------------------------------------------------------------
 #define kDescendantProcess @"org_pqrs_KeyRemap4MacBook_DescendantProcess"
 
@@ -365,6 +378,13 @@ static void observer_IONotification(void* refcon, io_iterator_t iterator)
                                                              name:NSWorkspaceSessionDidResignActiveNotification
                                                            object:nil];
 
+  // ------------------------------
+  [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:self
+                                                           selector:@selector
+															(observer_NSWorkspaceActiveSpaceDidChangeNotification:)
+                                                               name:NSWorkspaceActiveSpaceDidChangeNotification
+                                                             object:nil];
+    
   // ------------------------------------------------------------
   [self observer_NSWorkspaceDidActivateApplicationNotification:nil];
   [self distributedObserver_kTISNotifyEnabledKeyboardInputSourcesChanged:nil];

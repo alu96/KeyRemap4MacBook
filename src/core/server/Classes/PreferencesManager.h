@@ -1,6 +1,7 @@
 // -*- Mode: objc; Coding: utf-8; indent-tabs-mode: nil; -*-
 
 #import <Cocoa/Cocoa.h>
+#import "CGSPrivate.h"
 
 @class ClientForKernelspace;
 @class XMLCompiler;
@@ -27,6 +28,7 @@
 
 // --------------------------------------------------
 - (NSInteger)     configlist_selectedIndex;
+- (NSInteger)     configlist_selectedIndex:(CGSSpace)workspace;
 - (NSString*)     configlist_selectedName;
 - (NSString*)     configlist_selectedIdentifier;
 - (NSArray*)      configlist_getConfigList;
@@ -35,6 +37,7 @@
 - (NSString*)     configlist_name:(NSInteger)rowIndex;
 - (NSString*)     configlist_identifier:(NSInteger)rowIndex;
 - (void)          configlist_select:(NSInteger)newindex;
+- (void)          configlist_select:(NSInteger)newindex forWorkspace:(CGSSpace)workspace;
 - (void)          configlist_setName:(NSInteger)rowIndex name:(NSString*)name;
 - (void)          configlist_append;
 - (void)          configlist_delete:(NSInteger)rowIndex;
